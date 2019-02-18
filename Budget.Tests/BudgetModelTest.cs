@@ -36,5 +36,92 @@ namespace Budget.Tests
 
             Assert.That(actual, Is.EqualTo(expected));
         }
+
+        [Test]
+        public void AddCategory_InputIsStandardString_AddNewCategoryToCategoriesListReturnTrue()
+        {
+            BudgetModel model = new BudgetModel();
+            string categoryTitle = "Food";
+
+            bool result = model.AddCategory(categoryTitle);
+
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void AddCategory_InputIsStandardStringCategoryAlreadyExists_NoChangesToCategoryListReturnFalse()
+        {
+            BudgetModel model = new BudgetModel();
+            string categoryTitle = "Food";
+            string categoryTitle2 = "fOod";
+
+            model.AddCategory(categoryTitle);
+            bool result = model.AddCategory(categoryTitle2);
+
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void AddCategory_InputIsEmptyString_NoChangesToCategoriesListReturnFalse()
+        {
+            BudgetModel model = new BudgetModel();
+            string categoryName = "";
+
+            bool result = model.AddCategory(categoryName);
+
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void AddCategory_InputIsNull_NoChangesToCategoriesListReturnFalse()
+        {
+            BudgetModel model = new BudgetModel();
+            string categoryTitle = null;
+
+            bool result = model.AddCategory(categoryTitle);
+
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void EditCategory_InputStandardStringCategoryExists_ChangeTitleOfCategoryReturnTrue()
+        {
+            BudgetModel model = new BudgetModel();
+            string categoryTitle = "food";
+            string newCategoryTitle = "clothes";
+
+            model.AddCategory(categoryTitle);
+            bool result = model.EditCategory(categoryTitle, newCategoryTitle);
+
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void EditCategory_InputStandardStringCategoryDoNotExists_NoChangesToCategoriesListReturnFalse()
+        {
+            BudgetModel model = new BudgetModel();
+            string categoryTitle = "food";
+            string newCategoryTitle = "clothes";
+
+            bool result = model.EditCategory(categoryTitle, newCategoryTitle);
+
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void GetAllCategories_NoScenario_ReturnAllCategoryTitles()
+        {
+            BudgetModel model = new BudgetModel();
+            string[] expected = { "FOOD", "CLOTHES", "OTHER" };
+            for (int i = 0; i < expected.Length; i++)
+            {
+                model.AddCategory(expected[i]);
+            }
+
+            string[] actual = model.GetAllCategories();
+            bool result = expected.SequenceEqual(actual);
+
+            Assert.IsTrue(result);
+        }
     }
 }

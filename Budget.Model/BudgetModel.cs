@@ -8,7 +8,17 @@ namespace Budget.Model
 {
     public class BudgetModel
     {
+        private Balance balance;
 
+        public BudgetModel()
+        {
+            balance = Balance.GetInstance();
+        }
+
+        public decimal ShowBalanceAmount()
+        {
+            return balance.Amount;
+        }
     }
 
     class Balance
@@ -18,7 +28,7 @@ namespace Budget.Model
 
         private Balance() { }
 
-        public Balance GetInstance()
+        public static Balance GetInstance()
         {
             if (instance == null)
             {

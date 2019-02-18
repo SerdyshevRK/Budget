@@ -6,8 +6,25 @@ using System.Threading.Tasks;
 
 namespace Budget.Model
 {
-    class BudgetModel
+    public class BudgetModel
     {
 
+    }
+
+    class Balance
+    {
+        private static Balance instance;
+        public decimal Amount { get; set; }
+
+        private Balance() { }
+
+        public Balance GetInstance()
+        {
+            if (instance == null)
+            {
+                instance = new Balance();
+            }
+            return instance;
+        }
     }
 }

@@ -8,5 +8,6 @@ namespace Budget.Model
 {
     class BudgetModel
     {
+
     }
 }

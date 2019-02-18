@@ -12,14 +12,29 @@ namespace Budget.Tests
     class BudgetModelTest
     {
         [Test]
-        public void ShowBalanceAmount_NoScenario_ReturnBalanceAmount()
+        public void AddIncome_InputIsStandardValue_IncreaseBalanceAmountByValue()
         {
             BudgetModel model = new BudgetModel();
-            decimal expected = 0;
+            decimal value = 10;
+            decimal expected = model.ShowBalanceAmount() + value;
 
+            model.AddIncome(value);
             decimal actual = model.ShowBalanceAmount();
 
-            Assert.That(expected, Is.EqualTo(actual));
+            Assert.That(actual, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void AddIncome_InputIsNegativeValue_NoChangesToBalanceAmount()
+        {
+            BudgetModel model = new BudgetModel();
+            decimal expected = model.ShowBalanceAmount();
+            decimal value = -10;
+
+            model.AddIncome(value);
+            decimal actual = model.ShowBalanceAmount();
+
+            Assert.That(actual, Is.EqualTo(expected));
         }
     }
 }

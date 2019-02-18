@@ -19,6 +19,12 @@ namespace Budget.Model
         {
             return balance.Amount;
         }
+
+        public void AddIncome(decimal value)
+        {
+            if (value <= 0) return;
+            balance.Amount += value;
+        }
     }
 
     class Balance

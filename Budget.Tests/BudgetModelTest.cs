@@ -216,5 +216,33 @@ namespace Budget.Tests
 
             Assert.IsFalse(result);
         }
+
+        [Test]
+        public void AddSpending_StandardInput_DecBalanceByAmount()
+        {
+            BudgetModel model = new BudgetModel();
+            model.AddIncome(100);
+            decimal expected = model.ShowBalanceAmount() - 50;
+            model.AddCategory("food");
+            bool result = model.AddSpending("food", 50);
+
+            decimal actual = model.ShowBalanceAmount();
+
+            Assert.That(actual, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void AddSpending_SpendingAmountIsNegativeNumber_NoChangesToBalance()
+        {
+            BudgetModel model = new BudgetModel();
+            model.AddIncome(100);
+            decimal expected = model.ShowBalanceAmount();
+            model.AddCategory("food");
+            bool result = model.AddSpending("food", -50);
+
+            decimal actual = model.ShowBalanceAmount();
+
+            Assert.That(actual, Is.EqualTo(expected));
+        }
     }
 }

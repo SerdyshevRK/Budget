@@ -10,6 +10,7 @@ namespace Budget.Model
     {
         private Balance balance;
         private List<Category> categories;
+        private List<Spending> spendings;
 
         public BudgetModel()
         {
@@ -50,14 +51,21 @@ namespace Budget.Model
 
         private Category GetCategory(string title)
         {
+            Category result = null;
             foreach (Category category in categories)
             {
                 if (category.Title.Equals(title.ToUpper()))
                 {
-                    return category;
+                    result = category;
                 }
             }
-            return null;
+            return result;
+        }
+
+        private int GetCategoryID(string title)
+        {
+            Category category = GetCategory(title);
+            return category == null ? -1 : category.ID;
         }
 
         public bool EditCategory(string oldTitle, string newTitle)
@@ -112,6 +120,24 @@ namespace Budget.Model
         public void UpdateTitle(string title)
         {
             Title = title;
+        }
+    }
+
+    class Spending
+    {
+        public int ID { get; }
+        public int CategoryID { get; }
+        public decimal Amount { get; }
+        public DateTime Date { get; private set; }
+
+        public Spending(int id, int categoryID, decimal amount) : this(id, categoryID, amount, DateTime.Today) { }
+
+        public Spending(int id, int categoryID, decimal amount, DateTime date)
+        {
+            ID = id;
+            CategoryID = categoryID;
+            Amount = amount;
+            Date = date;
         }
     }
 }

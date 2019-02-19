@@ -9,12 +9,12 @@ namespace Budget.Model
     public class BudgetModel
     {
         private Balance balance;
-        private Dictionary<int, string> categories;
+        private List<Category> categories;
 
         public BudgetModel()
         {
             balance = Balance.GetInstance();
-            categories = new Dictionary<int, string>();
+            categories = new List<Category>();
         }
 
         public decimal ShowBalanceAmount()
@@ -30,34 +30,54 @@ namespace Budget.Model
 
         private bool ContainsCategory(string title)
         {
-            return categories.ContainsValue(title);
-        }
-
-        public bool AddCategory(string title)
-        {
-            if (title == null || title.Equals("") || ContainsCategory(title.ToUpper())) return false;
-            int key = categories.Count;
-            categories.Add(key, title.ToUpper());
-            return true;
-        }
-
-        public bool EditCategory(string oldTitle, string newTitle)
-        {
-            if (newTitle == null || newTitle.Equals("")) return false;
-            foreach(int key in categories.Keys)
+            foreach (Category category in categories)
             {
-                if (categories[key].Equals(oldTitle.ToUpper()))
+                if (category.Title.Equals(title))
                 {
-                    categories[key] = newTitle.ToUpper();
                     return true;
                 }
             }
             return false;
         }
 
+        public bool AddCategory(string title)
+        {
+            if (title == null || title.Equals("") || ContainsCategory(title.ToUpper())) return false;
+            int idx = categories.Count;
+            categories.Add(new Category(idx, title.ToUpper()));
+            return true;
+        }
+
+        private Category GetCategory(string title)
+        {
+            foreach (Category category in categories)
+            {
+                if (category.Title.Equals(title.ToUpper()))
+                {
+                    return category;
+                }
+            }
+            return null;
+        }
+
+        public bool EditCategory(string oldTitle, string newTitle)
+        {
+            if (newTitle == null || newTitle.Equals("")) return false;
+            Category category = GetCategory(oldTitle);
+            if (category == null) return false;
+            category.UpdateTitle(newTitle);
+            return true;
+        }
+
         public string[] GetAllCategories()
         {
-            return categories.Values.ToArray();
+            int count = categories.Count;
+            string[] result = new string[count];
+            for (int i = 0; i < count; i++)
+            {
+                result[i] = categories[i].Title;
+            }
+            return result;
         }
     }
 
@@ -75,6 +95,23 @@ namespace Budget.Model
                 instance = new Balance();
             }
             return instance;
+        }
+    }
+
+    class Category
+    {
+        public int ID { get; }
+        public string Title { get; private set; }
+
+        public Category(int id, string title)
+        {
+            ID = id;
+            Title = title;
+        }
+
+        public void UpdateTitle(string title)
+        {
+            Title = title;
         }
     }
 }

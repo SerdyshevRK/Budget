@@ -109,6 +109,32 @@ namespace Budget.Tests
         }
 
         [Test]
+        public void EditCategory_InputEmptyString_NoChangesToCategoriesListReturnFalse()
+        {
+            BudgetModel model = new BudgetModel();
+            string categoryTitle = "food";
+            string newCategoryTitle = "";
+
+            model.AddCategory(categoryTitle);
+            bool result = model.EditCategory(categoryTitle, newCategoryTitle);
+
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void EditCategory_InputIsNull_NoChangesToCategoriesListReturnFalse()
+        {
+            BudgetModel model = new BudgetModel();
+            string categoryTitle = "food";
+            string newCategoryTitle = null;
+
+            model.AddCategory(categoryTitle);
+            bool result = model.EditCategory(categoryTitle, newCategoryTitle);
+
+            Assert.IsFalse(result);
+        }
+
+        [Test]
         public void GetAllCategories_NoScenario_ReturnAllCategoryTitles()
         {
             BudgetModel model = new BudgetModel();

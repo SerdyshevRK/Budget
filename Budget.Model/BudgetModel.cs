@@ -43,6 +43,7 @@ namespace Budget.Model
 
         public bool EditCategory(string oldTitle, string newTitle)
         {
+            if (newTitle == null || newTitle.Equals("")) return false;
             foreach(int key in categories.Keys)
             {
                 if (categories[key].Equals(oldTitle.ToUpper()))

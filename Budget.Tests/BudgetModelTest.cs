@@ -135,6 +135,19 @@ namespace Budget.Tests
         }
 
         [Test]
+        public void EditCategory_InputOldCategoryIsNull_NoChangesToCategoriesListReturnFalse()
+        {
+            BudgetModel model = new BudgetModel();
+            string categoryTitle = null;
+            string newCategoryTitle = "food";
+
+            model.AddCategory(categoryTitle);
+            bool result = model.EditCategory(categoryTitle, newCategoryTitle);
+
+            Assert.IsFalse(result);
+        }
+
+        [Test]
         public void GetAllCategories_NoScenario_ReturnAllCategoryTitles()
         {
             BudgetModel model = new BudgetModel();
@@ -148,6 +161,60 @@ namespace Budget.Tests
             bool result = expected.SequenceEqual(actual);
 
             Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void AddSpending_StandardInput_AddNewSpendingReturnTrue()
+        {
+            BudgetModel model = new BudgetModel();
+            model.AddIncome(100);
+            model.AddCategory("food");
+            bool result = model.AddSpending("food", 50);
+
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void AddSpending_CategoryDoNotExists_NoChangesToSpendingListReturnFasle()
+        {
+            BudgetModel model = new BudgetModel();
+            model.AddIncome(100);
+            bool result = model.AddSpending("food", 50);
+
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void AddSpending_SpendingAmountIsNegativeNumberOrZero_NoChangesToSpendingListReturnFasle()
+        {
+            BudgetModel model = new BudgetModel();
+            model.AddIncome(100);
+            model.AddCategory("food");
+            bool result = model.AddSpending("food", -10);
+
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void AddSpending_CategoryIsNull_NoChangesToSpendingListReturnFasle()
+        {
+            BudgetModel model = new BudgetModel();
+            model.AddIncome(100);
+            model.AddCategory("food");
+            bool result = model.AddSpending(null, 10);
+
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void AddSpending_CategoryIsEmptyString_NoChangesToSpendingListReturnFasle()
+        {
+            BudgetModel model = new BudgetModel();
+            model.AddIncome(100);
+            model.AddCategory("food");
+            bool result = model.AddSpending("", 10);
+
+            Assert.IsFalse(result);
         }
     }
 }

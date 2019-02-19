@@ -16,6 +16,7 @@ namespace Budget.Model
         {
             balance = Balance.GetInstance();
             categories = new List<Category>();
+            spendings = new List<Spending>();
         }
 
         public decimal ShowBalanceAmount()
@@ -43,7 +44,7 @@ namespace Budget.Model
 
         public bool AddCategory(string title)
         {
-            if (title == null || title.Equals("") || ContainsCategory(title.ToUpper())) return false;
+            if (title == null || title.Length == 0 || ContainsCategory(title.ToUpper())) return false;
             int idx = categories.Count;
             categories.Add(new Category(idx, title.ToUpper()));
             return true;
@@ -51,6 +52,7 @@ namespace Budget.Model
 
         private Category GetCategory(string title)
         {
+            if (title == null || title.Length == 0) return null;
             Category result = null;
             foreach (Category category in categories)
             {
@@ -70,7 +72,7 @@ namespace Budget.Model
 
         public bool EditCategory(string oldTitle, string newTitle)
         {
-            if (newTitle == null || newTitle.Equals("")) return false;
+            if (newTitle == null || newTitle.Length == 0 || oldTitle == null || oldTitle.Length == 0) return false;
             Category category = GetCategory(oldTitle);
             if (category == null) return false;
             category.UpdateTitle(newTitle);
@@ -86,6 +88,17 @@ namespace Budget.Model
                 result[i] = categories[i].Title;
             }
             return result;
+        }
+
+        public bool AddSpending(string category, decimal amount)
+        {
+            if (category == null || category.Length == 0 || amount <= 0) return false;
+            int categoryID = GetCategoryID(category);
+            if (categoryID < 0) return false;
+            int id = spendings.Count;            
+            spendings.Add(new Spending(id, categoryID, amount));
+            balance.Amount -= amount;
+            return true;
         }
     }
 
@@ -128,7 +141,7 @@ namespace Budget.Model
         public int ID { get; }
         public int CategoryID { get; }
         public decimal Amount { get; }
-        public DateTime Date { get; private set; }
+        public DateTime Date { get; }
 
         public Spending(int id, int categoryID, decimal amount) : this(id, categoryID, amount, DateTime.Today) { }
 

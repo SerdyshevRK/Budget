@@ -121,6 +121,11 @@ namespace Budget.Model
             return result;
         }
 
+        public decimal ShowAllSpendingsByDay(DateTime day)
+        {
+            return ShowAllSpendingsByInterval(day, day);
+        }
+
         public decimal ShowAllSpendingsByInterval(DateTime start, DateTime end)
         {
             decimal result = 0;

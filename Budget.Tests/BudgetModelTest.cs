@@ -244,5 +244,195 @@ namespace Budget.Tests
 
             Assert.That(actual, Is.EqualTo(expected));
         }
+        [Test]
+        public void ShowSpendingsInCategoryByDay_TwoSpendingsWithAmounts10And15_Return25()
+        {
+            BudgetModel model = new BudgetModel();
+            string category = "food";
+            model.AddCategory(category);
+            model.AddIncome(100);
+            model.AddSpending(category, 10);
+            model.AddSpending(category, 15);
+            decimal expected = 25;
+
+            decimal actual = model.ShowSpendingsInCategoryByDay("food", DateTime.Today);
+
+            Assert.That(actual, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void ShowSpendingsInCategoryByDay_NoSpendingsInDate_Return0()
+        {
+            BudgetModel model = new BudgetModel();
+            string category = "food";
+            model.AddCategory(category);
+            model.AddIncome(20);
+            model.AddSpending(category, 10);
+            decimal expected = 0;
+
+            decimal actual = model.ShowSpendingsInCategoryByDay("food", new DateTime(2019, 1, 20));
+
+            Assert.That(actual, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void ShowSpendingsInCategoryByDay_DifferentCategory_Return0()
+        {
+            BudgetModel model = new BudgetModel();
+            string category = "food";
+            model.AddCategory(category);
+            model.AddIncome(20);
+            model.AddSpending(category, 10);
+            decimal expected = 0;
+
+            decimal actual = model.ShowSpendingsInCategoryByDay("clothes", DateTime.Today);
+
+            Assert.That(actual, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void ShowSpendingsInCategoryByDay_CategoryIsNull_Return0()
+        {
+            BudgetModel model = new BudgetModel();
+            string category = "food";
+            model.AddCategory(category);
+            model.AddIncome(20);
+            model.AddSpending(category, 10);
+            decimal expected = 0;
+
+            decimal actual = model.ShowSpendingsInCategoryByDay(null, DateTime.Today);
+
+            Assert.That(actual, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void ShowSpendingsInCategoryByInterval_TwoSpendingsWithAmounts5And8_Return13()
+        {
+            BudgetModel model = new BudgetModel();
+            string category = "food";
+            model.AddCategory(category);
+            model.AddIncome(20);
+            model.AddSpending(category, 5);
+            model.AddSpending(category, 8);
+            DateTime start = new DateTime(2019, 2, 18);
+            DateTime end = DateTime.Today;
+            decimal expected = 13;
+
+            decimal actual = model.ShowSpendingsInCategoryByInterval(category, start, end);
+
+            Assert.That(actual, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void ShowSpendingsInCategoryByInterval_NoSpendingsInDateInterval_Return0()
+        {
+            BudgetModel model = new BudgetModel();
+            string category = "food";
+            model.AddCategory(category);
+            model.AddIncome(20);
+            model.AddSpending(category, 5);
+            model.AddSpending(category, 8);
+            DateTime start = new DateTime(2019, 2, 10);
+            DateTime end = new DateTime(2019, 2, 19);
+            decimal expected = 0;
+
+            decimal actual = model.ShowSpendingsInCategoryByInterval(category, start, end);
+
+            Assert.That(actual, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void ShowSpendingsInCategoryByInterval_DifferentCategory_Return0()
+        {
+            BudgetModel model = new BudgetModel();
+            string category = "food";
+            model.AddCategory(category);
+            model.AddIncome(20);
+            model.AddSpending(category, 5);
+            model.AddSpending(category, 8);
+            DateTime start = new DateTime(2019, 2, 10);
+            DateTime end = new DateTime(2019, 2, 19);
+            decimal expected = 0;
+
+            decimal actual = model.ShowSpendingsInCategoryByInterval("clothes", start, end);
+
+            Assert.That(actual, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void ShowSpendingsInCategoryByInterval_CategoryIsNull_Return0()
+        {
+            BudgetModel model = new BudgetModel();
+            string category = "food";
+            model.AddCategory(category);
+            model.AddIncome(20);
+            model.AddSpending(category, 5);
+            model.AddSpending(category, 8);
+            DateTime start = new DateTime(2019, 2, 10);
+            DateTime end = new DateTime(2019, 2, 19);
+            decimal expected = 0;
+
+            decimal actual = model.ShowSpendingsInCategoryByInterval(null, start, end);
+
+            Assert.That(actual, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void ShowAllSpendingsByInterval_TwoSpendingsWithAmounts5And12InOneCategory_Return17()
+        {
+            BudgetModel model = new BudgetModel();
+            string category = "clothes";
+            model.AddCategory(category);
+            model.AddIncome(20);
+            model.AddSpending(category, 5);
+            model.AddSpending(category, 12);
+            DateTime start = new DateTime(2019, 2, 19);
+            DateTime end = DateTime.Today;
+            decimal expected = 17;
+
+            decimal actual = model.ShowAllSpendingsByInterval(start, end);
+
+            Assert.That(actual, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void ShowAllSpendingsByInterval_TwoSpendingsWithAmounts5And12InDifferentCategories_Return17()
+        {
+            BudgetModel model = new BudgetModel();
+            string category1 = "clothes";
+            string category2 = "travelling";
+            model.AddCategory(category1);
+            model.AddCategory(category2);
+            model.AddIncome(20);
+            model.AddSpending(category1, 5);
+            model.AddSpending(category2, 12);
+            DateTime start = new DateTime(2019, 2, 19);
+            DateTime end = DateTime.Today;
+            decimal expected = 17;
+
+            decimal actual = model.ShowAllSpendingsByInterval(start, end);
+
+            Assert.That(actual, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void ShowAllSpendingsByInterval_NoSpendingsInDateInterval_Return0()
+        {
+            BudgetModel model = new BudgetModel();
+            string category1 = "clothes";
+            string category2 = "travelling";
+            model.AddCategory(category1);
+            model.AddCategory(category2);
+            model.AddIncome(20);
+            model.AddSpending(category1, 5);
+            model.AddSpending(category2, 12);
+            DateTime start = new DateTime(2019, 2, 18);
+            DateTime end = new DateTime(2019, 2, 19);
+            decimal expected = 0;
+
+            decimal actual = model.ShowAllSpendingsByInterval(start, end);
+
+            Assert.That(actual, Is.EqualTo(expected));
+        }
     }
 }

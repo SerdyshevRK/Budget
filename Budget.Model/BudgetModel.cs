@@ -100,6 +100,39 @@ namespace Budget.Model
             balance.Amount -= amount;
             return true;
         }
+
+        public decimal ShowSpendingsInCategoryByDay(string category, DateTime day)
+        {
+            return ShowSpendingsInCategoryByInterval(category, day, day);
+        }
+
+        public decimal ShowSpendingsInCategoryByInterval(string category, DateTime start, DateTime end)
+        {
+            if (category == null || category.Length == 0) return 0;
+            decimal result = 0;
+            int catID = GetCategoryID(category);
+            foreach (Spending spending in spendings)
+            {
+                if (spending.CategoryID == catID && spending.Date.CompareTo(start) >= 0 && spending.Date.CompareTo(end) <= 0)
+                {
+                    result += spending.Amount;
+                }
+            }
+            return result;
+        }
+
+        public decimal ShowAllSpendingsByInterval(DateTime start, DateTime end)
+        {
+            decimal result = 0;
+            foreach (Spending spending in spendings)
+            {
+                if (spending.Date.CompareTo(start) >= 0 && spending.Date.CompareTo(end) <= 0)
+                {
+                    result += spending.Amount;
+                }
+            }
+            return result;
+        }
     }
 
     class Balance

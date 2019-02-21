@@ -32,14 +32,16 @@ namespace Budget.Model
 
         private bool ContainsCategory(string title)
         {
+            bool result = false;
             foreach (Category category in categories)
             {
                 if (category.Title.Equals(title))
                 {
-                    return true;
+                    result = true;
+                    break;
                 }
             }
-            return false;
+            return result;
         }
 
         public bool AddCategory(string title)
@@ -90,11 +92,32 @@ namespace Budget.Model
             return result;
         }
 
+        private Spending GetSpending(int categoryID)
+        {
+            Spending spending = null;            
+            foreach (Spending s in spendings)
+            {
+                if (s.CategoryID == categoryID && s.Date.Equals(DateTime.Today))
+                {
+                    spending = s;
+                    break;
+                }
+            }
+            return spending;
+        }
+
         public bool AddSpending(string category, decimal amount)
         {
             if (category == null || category.Length == 0 || amount <= 0) return false;
             int categoryID = GetCategoryID(category);
             if (categoryID < 0) return false;
+            Spending spending = GetSpending(categoryID);
+            if (spending != null)
+            {
+                spending.IncreaseAmount(amount);
+                balance.Amount -= amount;
+                return true;
+            }
             int id = spendings.Count;            
             spendings.Add(new Spending(id, categoryID, amount));
             balance.Amount -= amount;
@@ -109,16 +132,17 @@ namespace Budget.Model
         public decimal ShowSpendingsInCategoryByInterval(string category, DateTime start, DateTime end)
         {
             if (category == null || category.Length == 0) return 0;
-            decimal result = 0;
+            Spending spending = null;
             int catID = GetCategoryID(category);
-            foreach (Spending spending in spendings)
+            foreach (Spending s in spendings)
             {
-                if (spending.CategoryID == catID && spending.Date.CompareTo(start) >= 0 && spending.Date.CompareTo(end) <= 0)
+                if (s.CategoryID == catID && s.Date.CompareTo(start) >= 0 && s.Date.CompareTo(end) <= 0)
                 {
-                    result += spending.Amount;
+                    spending = s;
+                    break;
                 }
             }
-            return result;
+            return spending == null ? 0 : spending.Amount;
         }
 
         public decimal ShowAllSpendingsByDay(DateTime day)
@@ -178,7 +202,7 @@ namespace Budget.Model
     {
         public int ID { get; }
         public int CategoryID { get; }
-        public decimal Amount { get; }
+        public decimal Amount { get; private set; }
         public DateTime Date { get; }
 
         public Spending(int id, int categoryID, decimal amount) : this(id, categoryID, amount, DateTime.Today) { }
@@ -189,6 +213,11 @@ namespace Budget.Model
             CategoryID = categoryID;
             Amount = amount;
             Date = date;
+        }
+
+        public void IncreaseAmount(decimal value)
+        {
+            Amount += value;
         }
     }
 }

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Budget.Model", "Budget.Mode
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Budget.Model.Tests", "Budget.Tests\Budget.Model.Tests.csproj", "{F5E2C807-C567-43E3-B326-2E059FCC1CB1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Budget.UI", "Budget.UI\Budget.UI.csproj", "{F48817F9-537C-4CAE-A2F9-D2C9EEA57FA7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{F5E2C807-C567-43E3-B326-2E059FCC1CB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5E2C807-C567-43E3-B326-2E059FCC1CB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5E2C807-C567-43E3-B326-2E059FCC1CB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F48817F9-537C-4CAE-A2F9-D2C9EEA57FA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F48817F9-537C-4CAE-A2F9-D2C9EEA57FA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F48817F9-537C-4CAE-A2F9-D2C9EEA57FA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F48817F9-537C-4CAE-A2F9-D2C9EEA57FA7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

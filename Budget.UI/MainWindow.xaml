@@ -7,6 +7,33 @@
         mc:Ignorable="d"
         Title="Budget App" Height="450" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150 px"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50 px"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <!--Side menu-->
+        <Grid Grid.Column="0"
+              Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50 px"/>
+                <RowDefinition Height="50 px"/>
+                <RowDefinition Height="50 px"/>
+                <RowDefinition Height="50 px"/>
+            </Grid.RowDefinitions>
+        </Grid>
+        <!--End side menu-->
+        <!--Content-->
+        <Grid Grid.Column="1"
+              Grid.Row="1">
+            
+        </Grid>
+        <!--End content-->
     </Grid>
 </Window>

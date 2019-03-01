@@ -15,6 +15,19 @@
             <RowDefinition Height="50 px"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <!--Title-->
+        <Rectangle Grid.Row="0"
+                   Grid.ColumnSpan="2"
+                   Fill="#3674c8"/>
+        <TextBlock Text="Title"
+                   Foreground="White"
+                   FontFamily="Segoe UI"
+                   FontSize="18 pt"
+                   Grid.Row="0"
+                   Grid.ColumnSpan="2"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"/>
+        <!--End of title-->
         <!--Side menu-->
         <Grid Grid.Column="0"
               Grid.Row="1">
@@ -26,14 +39,56 @@
                 <RowDefinition Height="50 px"/>
                 <RowDefinition Height="50 px"/>
                 <RowDefinition Height="50 px"/>
+                <RowDefinition Height="50 px"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-        </Grid>
-        <!--End side menu-->
+            <Rectangle Grid.Column="0"
+                       Grid.RowSpan="6"
+                       Fill="#757680"/>
+            <!--Overview-->
+            <Button Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="5"
+                    Content="Overview"
+                    FontSize="12 pt"
+                    Foreground="#eae5e5"
+                    Background="#757680"/>
+            <!--Balance-->
+            <Button Grid.Row="2"
+                    Grid.Column="0"
+                    Margin="5"
+                    Content="Balance"
+                    FontSize="12 pt"
+                    Foreground="#eae5e5"
+                    Background="#757680"/>
+            <!--Spendings-->
+            <Button Grid.Row="3"
+                    Grid.Column="0"
+                    Margin="5"
+                    Content="Spendings"
+                    FontSize="12 pt"
+                    Foreground="#eae5e5"
+                    Background="#757680"/>
+            <!--Categories-->
+            <Button Grid.Row="4"
+                    Grid.Column="0"
+                    Margin="5"
+                    Content="Categories"
+                    FontSize="12 pt"
+                    Foreground="#eae5e5"
+                    Background="#757680"/>
+        </Grid>        
+        <!--End of side menu-->
         <!--Content-->
         <Grid Grid.Column="1"
               Grid.Row="1">
-            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
         </Grid>
-        <!--End content-->
+        <!--End of content-->
     </Grid>
 </Window>

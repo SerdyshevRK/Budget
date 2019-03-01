@@ -47,36 +47,20 @@
                        Fill="#757680"/>
             <!--Overview-->
             <Button Grid.Row="1"
-                    Grid.Column="0"
-                    Margin="5"
-                    Content="Overview"
-                    FontSize="12 pt"
-                    Foreground="#eae5e5"
-                    Background="#757680"/>
+                    Grid.Column="0"                    
+                    Content="Overview"/>
             <!--Balance-->
             <Button Grid.Row="2"
                     Grid.Column="0"
-                    Margin="5"
-                    Content="Balance"
-                    FontSize="12 pt"
-                    Foreground="#eae5e5"
-                    Background="#757680"/>
+                    Content="Balance"/>
             <!--Spendings-->
             <Button Grid.Row="3"
                     Grid.Column="0"
-                    Margin="5"
-                    Content="Spendings"
-                    FontSize="12 pt"
-                    Foreground="#eae5e5"
-                    Background="#757680"/>
+                    Content="Spendings"/>
             <!--Categories-->
             <Button Grid.Row="4"
                     Grid.Column="0"
-                    Margin="5"
-                    Content="Categories"
-                    FontSize="12 pt"
-                    Foreground="#eae5e5"
-                    Background="#757680"/>
+                    Content="Categories"/>
         </Grid>        
         <!--End of side menu-->
         <!--Content-->

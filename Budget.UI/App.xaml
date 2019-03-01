@@ -4,6 +4,11 @@
              xmlns:local="clr-namespace:Budget.UI"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="12 pt"/>
+            <Setter Property="Foreground" Value="#eae5e5"/>
+            <Setter Property="Background" Value="#757680"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
     </Application.Resources>
 </Application>
